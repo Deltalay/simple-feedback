@@ -1,20 +1,11 @@
 # feedback-site
-
 This is just a simple feedback website that create using vue and pocketbase.
 I use [Pocketbase](https://github.com/pocketbase/pocketbase) for backend database.
-
 ## Todo
-
 - [x] Real-time update
 - [x] Rating System
 - [x] Delete function
-<<<<<<< HEAD
 - [x] Create edit function
-=======
-- [ ] Create edit function
-
->>>>>>> a08189d89df934cca75e523a3876d43d3339bf74
-
 - [ ] Authentication
 
 ## Project Setup
