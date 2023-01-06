@@ -8,6 +8,6 @@ const pb = new Pocketbase("http://127.0.0.1:8090");
 export default pb;
 const pinia = createPinia();
 const app = createApp(App);
-app.use(pinia)
+app.use(pinia);
 
 app.mount("#app");
