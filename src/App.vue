@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav className="nav-contain">
+    <nav class="nav-contain">
       <span>Feedback</span>
     </nav>
     <div class="form-container">
@@ -50,7 +50,7 @@
             :disabled="_value >= 1 ? false : true"
             class="btn-submit"
           >
-            Submit
+            {{ _update ? "Update" : "Submit" }}
           </button>
         </div>
       </form>
@@ -61,6 +61,7 @@
     </div>
     <div>
       <CardCom
+        @handle-edit="handleEdit"
         v-for="i in data"
         :id="i.id"
         :key="i.id"
@@ -188,6 +189,7 @@
 }
 </style>
 <script setup>
+import { useRate } from "./store/rate";
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import CardCom from "./components/CardCom.vue";
 import pb from "./main";
@@ -195,9 +197,17 @@ const data = ref([]);
 let _value = ref(0);
 const count = ref(0);
 const average = ref(0);
+const _update = ref(false);
 const _message = ref("");
 function handleClick(data) {
   _value.value = data;
+}
+const store = useRate();
+function handleEdit(data) {
+  _message.value = data.suggestion;
+  _value.value = data.rate;
+  _update.value = true;
+  store.getRateData(data);
 }
 onBeforeUnmount(() => {
   pb.collection("content").unsubscribe("*");
@@ -218,6 +228,22 @@ onMounted(() => {
       if (action == "delete") {
         data.value = data.value.filter((m) => m.id !== record.id);
         const allValue = data.value.length;
+        let valueOfRate = 0;
+        for (let i = 0; i < allValue; i++) {
+          valueOfRate += Number(data.value[i].rate);
+        }
+        count.value = allValue;
+        average.value = calculateAverage(allValue, valueOfRate);
+      }
+      if (action == "update") {
+        data.value.map((m) => {
+          if (m.id == record.id) {
+            m.rate = record.rate;
+            m.suggestion = record.suggestion;
+          }
+        });
+        const allValue = data.value.length;
+
         let valueOfRate = 0;
         for (let i = 0; i < allValue; i++) {
           valueOfRate += Number(data.value[i].rate);
@@ -247,11 +273,29 @@ onBeforeMount(async () => {
   data.value = records;
 });
 async function handleFormSubmit() {
-  const createDat = {
-    rate: _value.value,
-    suggestion: _message.value,
-  };
-  await pb.collection("content").create(createDat);
+  if (_update.value == false) {
+    const createDat = {
+      rate: _value.value,
+      suggestion: _message.value,
+    };
+    await pb.collection("content").create(createDat);
+  }
+  if (_update.value == true) {
+    const update = {
+      rate: _value.value,
+      suggestion: _message.value,
+    };
+    try {
+      await pb.collection("content").update(store.id, update);
+      _update.value = false;
+      _message.value = "";
+      _value.value = "";
+    } catch (error) {
+      if (error) {
+        throw error;
+      }
+    }
+  }
 }
 function calculateAverage(allValue, sumOfAllValue) {
   const average = sumOfAllValue / allValue;

@@ -1,15 +1,13 @@
 <template>
-  <div className="card-container">
-    <div className="num-display">{{ rating }}</div>
+  <div class="card-container">
+    <div class="num-display">{{ rating }}</div>
 
-    <form method="put">
-      <button
-        disabled="{isAdding}"
-        type="submit"
-        name="_action"
-        className="close"
-        value="delete"
-      >
+    <form
+      class="form-icon"
+      method="put"
+      @submit.prevent="$emit('handleEdit', data)"
+    >
+      <button type="submit" name="_action" class="edit" value="edit">
         <Icon
           icon="material-symbols:edit-note"
           width="20"
@@ -18,8 +16,8 @@
         />
       </button>
     </form>
-    <form @submit.prevent="handleDelete" method="delete">
-      <button type="submit" className="edit" name="_action" value="edit">
+    <form class="form-icon" @submit.prevent="handleDelete" method="delete">
+      <button type="submit" class="close" name="_action" value="delete">
         <Icon
           icon="material-symbols:close"
           color="#4b3f72"
@@ -28,7 +26,7 @@
         />
       </button>
     </form>
-    <div className="text-display">{{ content }}</div>
+    <div class="text-display">{{ content }}</div>
   </div>
 </template>
 
@@ -43,6 +41,11 @@ const props = defineProps({
 async function handleDelete() {
   await pb.collection("content").delete(props.id);
 }
+const data = {
+  suggestion: props.content,
+  rate: props.rating,
+  id: props.id,
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
@@ -83,12 +86,12 @@ async function handleDelete() {
 .edit {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 17px;
   cursor: pointer;
   background: none;
   border: none;
+  padding: 0px;
 }
-
 .edit {
   right: 40px;
 }
