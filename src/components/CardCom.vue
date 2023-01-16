@@ -37,7 +37,6 @@ const props = defineProps({
   content: String,
   rating: String,
   id: String,
-  userId: String,
 });
 async function handleDelete() {
   await pb.collection("content").delete(props.id);
