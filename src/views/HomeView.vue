@@ -311,11 +311,7 @@ async function handleFormSubmit() {
     const createDat = {
       rate: _value.value,
       suggestion: _message.value,
-<<<<<<< HEAD
       users: "userID",
-=======
-      users: "omr8j6412vi7ski",
->>>>>>> 13b474b22c73e28d6ab4e7fcfc34252b86bd8008
     };
     await pb.collection("content").create(createDat);
   }
