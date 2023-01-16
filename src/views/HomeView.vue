@@ -96,12 +96,6 @@
   background-color: #0d6efd;
   color: white;
 }
-<<<<<<< HEAD
-
-=======
-.create-button {
-}
->>>>>>> 13b474b22c73e28d6ab4e7fcfc34252b86bd8008
 .log-button {
   font-weight: bold;
   font-family: "Roboto", sans-serif;
