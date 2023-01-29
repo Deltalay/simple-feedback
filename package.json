@@ -9,17 +9,20 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "pinia": "^2.0.28",
-    "pocketbase": "^0.10.0",
-    "vue": "^3.2.45"
+    "@dicebear/collection": "^5.2.0",
+    "@dicebear/core": "^5.2.0",
+    "pinia": "^2.0.29",
+    "pocketbase": "^0.10.1",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.0.2",
+    "@iconify/vue": "^4.1.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.31.0",
+    "eslint": "^8.33.0",
     "eslint-plugin-vue": "^9.9.0",
     "prettier": "^2.8.3",
     "vite": "^4.0.4"

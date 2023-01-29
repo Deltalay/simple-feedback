@@ -4,9 +4,11 @@
       <span>Feedback</span>
       <div class="log-contain">
         <div class="left">
-          <button class="log-button login-button">LOGIN</button>
+          <button @click="login()" class="log-button login-button">
+            LOGIN
+          </button>
         </div>
-        <div><button class="log-button">SIGN UP</button></div>
+        <div><button @click="signUp()" class="log-button">SIGN UP</button></div>
       </div>
     </nav>
     <div class="form-container">
@@ -227,6 +229,7 @@ import { useRate } from "../store/rate";
 import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import CardCom from "../components/CardCom.vue";
 import pb from "../main";
+import router from "../routes/route";
 const data = ref([]);
 let _value = ref(0);
 const count = ref(0);
@@ -235,6 +238,12 @@ const _update = ref(false);
 const _message = ref("");
 function handleClick(data) {
   _value.value = data;
+}
+function login() {
+  router.push("/login");
+}
+function signUp() {
+  router.push("/createaccount");
 }
 const store = useRate();
 function handleEdit(data) {
