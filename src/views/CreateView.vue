@@ -130,7 +130,7 @@ async function createAccount() {
 .button-login {
   background-color: hsl(210, 100%, 50%);
   margin: auto;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   border: 1px solid transparent;
   text-align: center;
@@ -138,6 +138,7 @@ async function createAccount() {
   padding-bottom: 8px;
   display: block;
   width: 100%;
+  font-weight: bold;
   border-radius: 4px;
   transition: ease-in-out background-color 0.2s;
 }

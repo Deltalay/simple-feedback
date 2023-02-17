@@ -55,7 +55,7 @@
             name="_action"
             value="create"
             type="submit"
-            :disabled="_value >= 1 ? false : true"
+            :disabled="_value >= 1 && _checkSignin ? false : true"
             class="btn-submit"
           >
             {{ _update ? "Update" : "Submit" }}
@@ -230,8 +230,10 @@ import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import CardCom from "../components/CardCom.vue";
 import pb from "../main";
 import router from "../routes/route";
+
 const data = ref([]);
 let _value = ref(0);
+let _checkSignin = ref(false);
 const count = ref(0);
 const average = ref(0);
 const _update = ref(false);
@@ -299,6 +301,11 @@ onMounted(() => {
       console.log(error);
       console.log(error.originalError);
     });
+  if (pb.authStore.isValid === false) {
+    _checkSignin.value = false;
+  } else {
+    _checkSignin.value = true;
+  }
 });
 onBeforeMount(async () => {
   const records = await pb
@@ -320,7 +327,7 @@ async function handleFormSubmit() {
     const createDat = {
       rate: _value.value,
       suggestion: _message.value,
-      users: "userID",
+      users: pb.authStore.model.id,
     };
     await pb.collection("content").create(createDat);
   }
