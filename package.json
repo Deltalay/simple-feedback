@@ -12,7 +12,7 @@
     "@dicebear/collection": "^5.3.4",
     "@dicebear/core": "^5.3.4",
     "pinia": "^2.0.30",
-    "pocketbase": "^0.10.2",
+    "pocketbase": "^0.11.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
@@ -25,6 +25,6 @@
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
     "prettier": "^2.8.4",
-    "vite": "^4.1.1"
+    "vite": "^4.1.2"
   }
 }
