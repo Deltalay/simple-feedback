@@ -2,7 +2,10 @@
   <div>
     <nav class="nav-contain">
       <span>Feedback</span>
-      <div class="log-contain">
+      <div class="log-contain" v-if="_checkSignin">
+        <img class="avatar" :src="_avatar" width="46" height="46" />
+      </div>
+      <div class="log-contain" v-else>
         <div class="left">
           <button @click="login()" class="log-button login-button">
             LOGIN
@@ -83,6 +86,10 @@
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=GFS+Neohellenic&family=Roboto&display=swap");
 
+.avatar {
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
 .left {
   margin-right: 7px;
 }
@@ -230,10 +237,12 @@ import { ref, onBeforeMount, onMounted, onBeforeUnmount } from "vue";
 import CardCom from "../components/CardCom.vue";
 import pb from "../main";
 import router from "../routes/route";
-
+import { createAvatar } from "@dicebear/core";
+import { initials } from "@dicebear/collection";
 const data = ref([]);
 let _value = ref(0);
 let _checkSignin = ref(false);
+const _avatar = ref("");
 const count = ref(0);
 const average = ref(0);
 const _update = ref(false);
@@ -305,6 +314,13 @@ onMounted(() => {
     _checkSignin.value = false;
   } else {
     _checkSignin.value = true;
+    let pocketAuth = localStorage.pocketbase_auth;
+    pocketAuth = JSON.parse(pocketAuth);
+    console.log(pocketAuth.model.username);
+    const avatar = createAvatar(initials, {
+      seed: pocketAuth.model.username,
+    });
+    _avatar.value = avatar.toDataUriSync();
   }
 });
 onBeforeMount(async () => {
