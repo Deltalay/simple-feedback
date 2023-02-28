@@ -6,7 +6,7 @@ I use [Pocketbase](https://github.com/pocketbase/pocketbase) for backend databas
 - [x] Rating System
 - [x] Delete function
 - [x] Edit function
-- [ ] Authentication
+- [x] Authentication
 
 ## Project Setup
 
